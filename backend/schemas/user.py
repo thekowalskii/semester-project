@@ -16,9 +16,13 @@ ascii_letters = ascii_letters + ' '
 #                  username: Annotated[str, ])
 
 
-class UserSigninForm(BaseModel):
-    email: EmailStr
-    password: str
+class UserSigninForm:
+    def __init__(self,
+                 email: EmailStr = Form(...),
+                password: str = Form(...),
+    ):
+        self.email = email
+        self.password = password
 
 
 class UserSchema(BaseModel):
