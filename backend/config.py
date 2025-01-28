@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
+
+# DATABASEs DATA
+
 PG_CONFIG: str = 'postgresql+asyncpg://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_NAME}'.format(
     PG_USER=os.getenv('PG_USER'),
     PG_PASSWORD=os.getenv('PG_PASSWORD'),
@@ -20,3 +23,18 @@ REDIS_CONFIG = {
     'port': os.getenv('REDIS_PORT')
 }
 
+# JWT TOKEN DATA
+
+TOKEN_ALG = os.getenv('JWT_TOKEN_ALG')
+TOKEN_TYPE = os.getenv('JWT_TOKEN_TYPE')
+TOKEN_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
+
+# ADMIN DATA
+
+ADMIN_USERNAME: str = os.getenv('ADMIN_USERNAME')
+ADMIN_EMAIL: str = os.getenv('ADMIN_EMAIL')
+ADMIN_PASSWORD: str = os.getenv('ADMIN_PASSWORD')
+
+# SESSION DATA
+
+SESSION_MIDDLEWARE_SECRET_KEY = os.getenv('SESSION_MIDDLEWARE_SECRET_KEY')

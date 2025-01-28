@@ -1,13 +1,24 @@
 from string import ascii_letters
 import uuid
+from typing import Annotated
 
 from pydantic import (BaseModel, 
                       EmailStr, 
                       Field, 
                       field_validator
 )
+from fastapi import Form
 
 ascii_letters = ascii_letters + ' '
+
+# class UserRegistrationForm:
+#     def __init__(self,
+#                  username: Annotated[str, ])
+
+
+class UserSigninForm(BaseModel):
+    email: EmailStr
+    password: str
 
 
 class UserSchema(BaseModel):

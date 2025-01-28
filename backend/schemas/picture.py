@@ -1,5 +1,11 @@
+from typing import Annotated
+
 from pydantic import BaseModel, field_validator
-from fastapi import UploadFile
+from fastapi import UploadFile, File, Form
+
+
+class HashSchema(BaseModel):
+    hashed: Annotated[bytes, File(...)]
 
 
 class PictureSchema(BaseModel):
