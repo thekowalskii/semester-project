@@ -47,7 +47,6 @@ class TokenManager:
                 algorithms=[self._alg],
             )
 
-            print(f'\n\n\n{payload}\n\n\n')
         except jwt.exceptions.ExpiredSignatureError as error:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,

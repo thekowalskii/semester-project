@@ -1,4 +1,7 @@
+import uuid
+
 import redis
+from fastapi import HTTPException, status
 
 
 class RedisManager:
@@ -15,15 +18,20 @@ class RedisManager:
         self._engine = redis.from_url('redis://localhost')
 
 
-    def add_photo(self, title, photo):
+    def add_photo(self, title: str, photo: str) -> None:
+        '''
+        Adding provided photo (in str (hex)) into `Redis` database.
+
+        Return -> `Picture id` (in Redis)
+        '''
+
         self._engine.set(title, photo)
 
-        photo_id = self._engine.get(title)
+        return None
 
-        print()
 
-    def get_photo(self, title):
-        photo: bytes = self._engine.get(title)
+    def get_photo(self, title: str):
+        photo: str = self._engine.get(title)
 
         return photo
     
