@@ -1,2 +1,2 @@
 from .user import User
-from .picture import Picture
+from .painting import Painting

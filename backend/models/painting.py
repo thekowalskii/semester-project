@@ -6,22 +6,22 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from backend.models.base import PGBase
 from backend.api.dependencies.db import Session_dp
-from backend.schemas.picture import PictureSchemaFull, PictureSchema
+from backend.schemas import PaintingSchemaFull, PaintingSchema
 from backend.databases.redis_manager import redis_manager
 
 
-class Picture(PGBase):
+class Painting(PGBase):
     title: Mapped[str] = mapped_column(unique=True)
     description: Mapped[str] = mapped_column()
     price: Mapped[int] = mapped_column()
     
 
     @classmethod
-    async def create(cls, session: Session_dp, picture: PictureSchemaFull):
+    async def create(cls, session: Session_dp, painting: PaintingSchemaFull):
         new = cls(
-            title=picture.title,
-            description=picture.description,
-            price=picture.price
+            title=painting.title,
+            description=painting.description,
+            price=painting.price
         )
 
         session.add(new)
@@ -31,7 +31,7 @@ class Picture(PGBase):
 
         redis_manager.add_photo(
             title=new.title,
-            photo=picture.hex_photo
+            photo=painting.hex_photo
         )
 
         return None
