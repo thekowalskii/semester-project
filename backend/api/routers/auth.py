@@ -30,7 +30,7 @@ async def signup(request: Request, response: Response, session: Session_dp, form
     jwt_payload = {
         'scope': user.role,
         'email': user.email,
-        "exp": time.time() + 10
+        "exp": time.time() + 3600
     }
 
     token = token_manager.encode_token(payload=jwt_payload)

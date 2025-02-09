@@ -1,6 +1,7 @@
+from enum import Enum as stdEnum
 import uuid
 
-from sqlalchemy import Enum as ForeignKey, select
+from sqlalchemy import String, Enum as saEnum, Integer, ForeignKey, select
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from backend.models.base import PGBase
@@ -39,3 +40,4 @@ class CartItem(PGBase):
         await session.commit()
 
         return painting.title
+

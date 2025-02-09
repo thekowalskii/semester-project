@@ -11,6 +11,7 @@ class PaintingSchema(BaseModel):
     title: str
     description: Optional[str] = Form(None)
     price: int
+    available: int
 
 
     @field_validator('description')
@@ -24,9 +25,10 @@ class PaintingSchema(BaseModel):
 def parse_painting(
     title: str = Form(...),
     description: str | None = Form(None),
-    price: int = Form(...)
+    price: int = Form(...),
+    available: int = Form(...)
 ) -> PaintingSchema:
-    return PaintingSchema(title=title, description=description, price=price)
+    return PaintingSchema(title=title, description=description, price=price, available=available)
 
 
 class PaintingSchemaFull(PaintingSchema):

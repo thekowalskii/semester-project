@@ -1,4 +1,5 @@
 import time
+import asyncio
 
 from fastapi import APIRouter, Request, Depends, UploadFile, File
 from fastapi.responses import StreamingResponse
@@ -15,7 +16,7 @@ from backend.services import token_manager, hex_to_image
 painting_r = APIRouter(tags=['paintings'])
 
 
-@painting_r.post('/create_painting', dependencies=[admin_scope_dp])
+@painting_r.post('/create', dependencies=[admin_scope_dp])
 async def create_painting(request: Request, 
                          session: Session_dp,
                          painting: UploadFile = File(...),
@@ -36,7 +37,7 @@ async def create_painting(request: Request,
     return 'created'
 
 
-@painting_r.get('/get_painting')
+@painting_r.get('/get_one')
 async def get_photo(request: Request, session: Session_dp, title: str):
     painting = await Painting.get(
         session=session, 
@@ -45,6 +46,6 @@ async def get_photo(request: Request, session: Session_dp, title: str):
     )
 
     image = redis_manager.get_photo(title=painting.title)
-    image = hex_to_image(image)
+    image = await hex_to_image(image)
 
     return StreamingResponse(image, media_type='image/png')

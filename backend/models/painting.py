@@ -14,6 +14,7 @@ class Painting(PGBase):
     title: Mapped[str] = mapped_column(unique=True)
     description: Mapped[str] = mapped_column()
     price: Mapped[int] = mapped_column()
+    available: Mapped[int] = mapped_column()
     
 
     @classmethod
@@ -21,7 +22,8 @@ class Painting(PGBase):
         new = cls(
             title=painting.title,
             description=painting.description,
-            price=painting.price
+            price=painting.price,
+            available=painting.available
         )
 
         session.add(new)

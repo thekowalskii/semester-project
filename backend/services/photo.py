@@ -5,7 +5,7 @@ from PIL import Image
 from fastapi import HTTPException
 
 
-def hex_to_image(hex_str: str) -> io.BytesIO:
+async def hex_to_image(hex_str: str) -> io.BytesIO:
     try:
         image_bytes = binascii.unhexlify(hex_str)
 
@@ -13,6 +13,7 @@ def hex_to_image(hex_str: str) -> io.BytesIO:
 
         buf = io.BytesIO()
         image.save(buf, format="PNG")
+        print(image.format)
         buf.seek(0)
         return buf
     except Exception as e:
