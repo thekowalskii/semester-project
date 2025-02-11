@@ -1,6 +1,6 @@
 import time
 
-from fastapi import APIRouter, Request, Response, Depends, HTTPException, status
+from fastapi import APIRouter, Request, Response, Depends, HTTPException, status, Query
 
 from backend.api.dependencies.db import Session_dp
 from backend.schemas.user import UserSchema, UserSigninForm
@@ -41,7 +41,8 @@ async def signup(request: Request, response: Response, session: Session_dp, form
 
 
 @auth_r.post('/signin')
-async def signin(request: Request, response: Response, session: Session_dp, form_data: UserSigninForm = Depends()):
+async def signin(request: Request, response: Response, session: Session_dp, form_data: UserSigninForm):
+
     user = await User.get(session=session, field=User.email, value=form_data.email)
 
     if not user:
@@ -68,7 +69,10 @@ async def signin(request: Request, response: Response, session: Session_dp, form
 
 @auth_r.post('/logout')
 async def logout(request: Request):
-    del request.session['access_token']
+    try:
+        del request.session['access_token']
+    except Exception as _:
+        return 'You are not signed in'
 
     return 'Loged Out'
 

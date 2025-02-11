@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+
 import Cookies from 'js-cookie'
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import api from '../api'
-
-import AuthenticateForm from './components/Authenticate'
+import Header from './components/Header'
+import SignIn from './components/SignInForm';
+import Home from './components/Home';
 
 
 function checkToken() {
@@ -21,7 +21,12 @@ function App() {
 
   return (
     <>
-      <h1>Hello</h1>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Home />}></Route>
+          <Route path='/signin' element={<SignIn />}></Route>
+        </Routes>
+      </Router>
     </>
   )
 }

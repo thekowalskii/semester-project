@@ -1,38 +1,67 @@
-:root {
+#root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
+  width: 95%;
+  min-height: 100vh;
+
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #3e2522;
+  background-color: #fff2df;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  flex-wrap: wrap;
+}
+
+*{
+  color: #3e2522;
+  flex-shrink: 0;
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
+  font-weight: 600;
+  font-size: 20px;
+  color: #8c6e63;
   text-decoration: inherit;
 }
 a:hover {
   color: #535bf2;
 }
 
-body {
+body, html {
+  width: 100%;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  flex-shrink: 0;
+  background-color: #fff2df;
+}
+
+header {
+  flex-shrink: 0;
+  flex-grow: 0;
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+h2{
+  font-size: 30px;
 }
 
 button {
@@ -42,12 +71,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #d3a376;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: #8c6e63;
 }
 button:focus,
 button:focus-visible {
@@ -65,4 +94,40 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+
+input{
+  background-color: #d3a376;
+  color: #3e2522;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+
+input::placeholder{
+  color: #3e2522;
+}
+
+.signin-form {
+  width: 50%;
+  height: 70vh;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+nav {
+  gap: 20px;
+  padding: 0 20px;
+}
+
+
+.nav-link{
+  margin: 15px;
 }

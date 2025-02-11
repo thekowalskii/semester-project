@@ -11,18 +11,17 @@ from fastapi import Form
 
 ascii_letters = ascii_letters + ' '
 
-# class UserRegistrationForm:
-#     def __init__(self,
-#                  username: Annotated[str, ])
 
+class UserSigninForm(BaseModel):
+    # def __init__(self,
+    #              email: EmailStr = Form(...),
+    #             password: str = Form(...),
+    # ):
+    #     self.email = email
+    #     self.password = password
 
-class UserSigninForm:
-    def __init__(self,
-                 email: EmailStr = Form(...),
-                password: str = Form(...),
-    ):
-        self.email = email
-        self.password = password
+    email: EmailStr
+    password: str
 
 
 class UserSchema(BaseModel):

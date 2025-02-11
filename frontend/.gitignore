@@ -12,8 +12,6 @@ dist
 dist-ssr
 *.local
 
-package-lock.json
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -30,3 +28,5 @@ package-lock.json
 .env
 poetry.lock
 __pycache__
+
+api.js
