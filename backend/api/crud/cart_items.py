@@ -72,8 +72,3 @@ async def remove_item(
     await session.commit()
 
     return 203
-
-
-'''
-git commit -m "Improved total_price logic" -m "In previous commits i done carts logic, but i forgot one moment: even when you add new product to your cart, 'total_price' does not change and is equal to 0 (default value). Now, when you add/remove an element - it works great"
-'''

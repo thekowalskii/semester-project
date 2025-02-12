@@ -27,15 +27,9 @@ async def signup(request: Request, response: Response, session: Session_dp, form
     user = await User.create(session=session, user=form_data)
 
     # Creating JWT token to add in cookies
-    jwt_payload = {
-        'scope': user.role,
-        'email': user.email,
-        "exp": time.time() + 3600
-    }
 
-    token = token_manager.encode_token(payload=jwt_payload)
+    token = token_manager.encode_token(user=user)
     request.session['access_token'] = token
-
 
     return token
 
@@ -54,13 +48,8 @@ async def signin(request: Request, response: Response, session: Session_dp, form
     password_manager.verify_password(form_data.password, user.password)
     
     # Creating JWT token to add in cookies
-    jwt_payload = {
-        'scope': user.role,
-        'email': user.email,
-        "exp": time.time() + 36000
-    }
 
-    token = token_manager.encode_token(payload=jwt_payload)
+    token = token_manager.encode_token(user=user)
     request.session['access_token'] = token
 
 

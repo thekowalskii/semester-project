@@ -6,7 +6,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from fastapi import HTTPException, status
 
 from backend.models.base import PGBase
-from backend.schemas.user import UserSchema
+from backend.schemas import UserSchema, UserResponseSchema
 from backend.api.dependencies.db import Session_dp
 from backend.utils import password_manager
 
@@ -43,4 +43,12 @@ class User(PGBase):
         session.add(new)
         await session.commit()
 
-        return new
+        res = UserResponseSchema(
+            id=new.id,
+            username=new.username,
+            email=new.email,
+            role=new.role,
+            cart_id=new.cart
+        )
+
+        return res

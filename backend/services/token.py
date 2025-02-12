@@ -2,9 +2,10 @@ from time import time
 import datetime
 
 import jwt
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, Request
 
 from backend.config import TOKEN_ALG, TOKEN_SECRET_KEY, TOKEN_TYPE
+from backend.schemas import UserResponseSchema
 
 
 class TokenManager:
@@ -21,9 +22,16 @@ class TokenManager:
         self._secret_key = secret_key
 
 
-    def encode_token(self, payload):
-        if not payload:
-            raise ValueError('Payload cannot be empty string')
+    def encode_token(self, user: UserResponseSchema):
+        if not user:
+            raise ValueError('You should provide a user')
+
+        payload = {
+            'scope': user.role,
+            'email': user.email,
+            'cart_id': user.cart,
+            'exp': time() + 3600
+        }
 
         token = jwt.encode(
             payload=payload,
@@ -31,8 +39,7 @@ class TokenManager:
             algorithm=self._alg,
             headers={
                 'alg': self._alg, 
-                'typ': self._type,
-                'exp': time() + 36000
+                'typ': self._type
             }
         )
 
