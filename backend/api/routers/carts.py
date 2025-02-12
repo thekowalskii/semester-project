@@ -1,4 +1,5 @@
 import time
+import uuid
 
 from fastapi import APIRouter, Request, Response, Depends, HTTPException, status, Form
 
@@ -16,6 +17,23 @@ async def create_cart(session: Session_dp):
     cart = await Cart.create(session=session)
 
     return cart
+
+
+@carts_r.get('/cart_info')
+async def get_cart_info(session: Session_dp, cart_id: uuid.UUID):
+    cart = await Cart.get(session=session, field=Cart.id, value=cart_id)
+
+    if not cart:
+        return 'Such cart does not exist'
+
+    info = {
+        'total_price': cart.total_price,
+        'created_at': cart.created_at,
+        'status': cart.status,
+        'items': [p for p in cart.cart_items],
+    }
+
+    return info
 
 
 @carts_r.post('/add_product')

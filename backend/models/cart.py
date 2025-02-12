@@ -17,6 +17,16 @@ class Cart(PGBase):
         back_populates="cart", cascade="all, delete-orphan", lazy="joined"
     )
 
+    def update_total_price(self):
+        total_price = 0
+
+        for product in self.cart_items:
+            total_price += product.product_price * product.quantity
+
+        self.total_price = total_price
+
+        return
+
 
     @classmethod
     async def create(cls, session: Session_dp):
