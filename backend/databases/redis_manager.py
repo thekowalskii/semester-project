@@ -1,6 +1,6 @@
 import uuid
 
-import redis
+import aioredis
 from fastapi import HTTPException, status
 
 
@@ -11,33 +11,33 @@ class RedisManager:
     '''
 
     def __init__(self):
-        self._engine: redis.Redis | None = None
+        self._engine: aioredis.Redis | None = None
 
 
     def init(self):
-        self._engine = redis.from_url('redis://localhost')
+        self._engine = aioredis.from_url('redis://localhost')
 
 
-    def add_photo(self, title: str, photo: str) -> None:
+    async def add_photo(self, title: str, photo: str) -> None:
         '''
         Adding provided photo (in str (hex)) into `Redis` database.
 
         Return -> `Picture id` (in Redis)
         '''
 
-        self._engine.set(title, photo)
+        await self._engine.set(title, photo)
 
         return None
 
 
-    def get_photo(self, title: str):
-        photo: str = self._engine.get(title)
+    async def get_photo(self, title: str):
+        photo: str = await self._engine.get(title)
 
         return photo
     
-    def clear_all(self):
+    async def clear_all(self):
         'CLEAR'
 
-        self._engine.flushdb(asynchronous=False)
+        await self._engine.flushdb(asynchronous=False)
 
 redis_manager = RedisManager()

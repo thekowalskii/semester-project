@@ -2,7 +2,7 @@ import uuid
 
 from sqlalchemy.orm import DeclarativeBase, declared_attr, Mapped, mapped_column
 from sqlalchemy.ext.asyncio import AsyncAttrs
-from sqlalchemy import select
+from sqlalchemy import select, delete
 
 from backend.api.dependencies.db import Session_dp
 
@@ -36,3 +36,12 @@ class PGBase(AsyncAttrs, DeclarativeBase):
         elem = elem.scalars().first()
 
         return elem
+    
+
+    @classmethod
+    async def delete(cls, session: Session_dp, id: uuid.UUID):
+        stmt = delete(cls).where(cls.id == id)
+        await session.execute(stmt)
+        await session.commit()
+
+        return 204

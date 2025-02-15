@@ -31,7 +31,7 @@ class Painting(PGBase):
 
         # adding this photo into Redis
 
-        redis_manager.add_photo(
+        await redis_manager.add_photo(
             title=new.title,
             photo=painting.hex_photo
         )
