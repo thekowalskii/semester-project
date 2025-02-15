@@ -29,7 +29,6 @@ class TokenManager:
         payload = {
             'scope': user.role,
             'email': user.email,
-            'cart_id': user.cart,
             'exp': time() + 3600
         }
 
