@@ -52,8 +52,13 @@ async def signin(request: Request, response: Response, session: Session_dp, form
     token = token_manager.encode_token(user=user)
     request.session['access_token'] = token
 
+    res = {
+        'token': token,
+        'email': user.email,
+        'cart': user.cart
+    }
 
-    return token
+    return res
 
 
 @auth_r.post('/logout')

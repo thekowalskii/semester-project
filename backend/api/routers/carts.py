@@ -7,6 +7,7 @@ from backend.api.dependencies.db import Session_dp
 from backend.schemas.user import UserSchema, UserSigninForm
 from backend.models.user import Cart
 from backend.api.crud.cart_items import add_item, remove_item
+from backend.api.dependencies.carts import user_email_dp
 
 
 carts_r = APIRouter(tags=['carts'], prefix='/carts')
@@ -38,7 +39,7 @@ async def get_cart_info(session: Session_dp, cart_id: uuid.UUID):
 
 @carts_r.post('/add_product')
 async def add_product(session: Session_dp,
-                      cart_id = Form(...),
+                      cart_id: uuid.UUID = Form(...),
                       product_id = Form(...),
                       quantity: int = Form(...)
 ):
@@ -54,7 +55,7 @@ async def add_product(session: Session_dp,
 
 @carts_r.delete('/remove_product')
 async def add_product(session: Session_dp,
-                      cart_id = Form(...),
+                      cart_id: uuid.UUID = Form(...),
                       product_id = Form(...)
 ):
     res = await remove_item(

@@ -31,12 +31,13 @@ class User(PGBase):
             )
         
         cart = await Cart.create(session=session)
+        print((user.username, ADMIN_USERNAME), (user.email, ADMIN_EMAIL), (user.password, ADMIN_PASSWORD))
         
         new = cls(
             username=user.username,
             email=user.email,
             password=password_manager.hash_password(user.password),
-            role='admin' if user.username == ADMIN_USERNAME and user.email == ADMIN_EMAIL and user.password == ADMIN_PASSWORD else 'user',
+            role='admin' if (user.username == ADMIN_USERNAME) and (user.email == ADMIN_EMAIL) and (user.password == ADMIN_PASSWORD) else 'user',
             cart=cart.id
         )
 

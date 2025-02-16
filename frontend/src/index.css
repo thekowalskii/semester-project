@@ -125,6 +125,10 @@ input::placeholder{
 nav {
   gap: 20px;
   padding: 0 20px;
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav-link{

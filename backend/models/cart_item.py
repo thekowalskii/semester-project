@@ -12,6 +12,8 @@ from .painting import Painting
 class CartItem(PGBase):
     __tablename__ = 'cart_items'
     
+    product_title: Mapped[str] = mapped_column()
+    product_description: Mapped[str] = mapped_column()
     product_price: Mapped[int] = mapped_column()
     quantity: Mapped[int] = mapped_column()
 
@@ -34,6 +36,7 @@ class CartItem(PGBase):
             cart_id=cart.id,
             product=painting,
             cart=cart,
+            product_title=painting.title
         )
 
         session.add(new)

@@ -53,7 +53,7 @@ class UserResponseSchema(BaseModel):
     username: str
     email: EmailStr
     role: str
-    cart: str
+    cart_id: uuid.UUID
 
     model_config = {
         'from_attributes': True

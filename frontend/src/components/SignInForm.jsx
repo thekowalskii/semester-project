@@ -13,8 +13,11 @@ function SignIn() {
 
         await api.post('/signin', data)
             .then((response) => {
-                let token = response.data
+                // console.log(response.data.email)
+                let token = response.data.token
+                let cart = response.data.cart
                 Cookies.set('access_token', token)
+                Cookies.set('cart', cart)
                 location.reload()
             })
 
