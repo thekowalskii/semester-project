@@ -30,6 +30,8 @@ async def add_item(
                 )
             
             item.quantity += quantity
+            cart.update_total_price()
+            await session.commit()
 
             return 201
 

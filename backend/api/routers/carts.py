@@ -17,11 +17,17 @@ carts_r = APIRouter(tags=['carts'], prefix='/carts')
 async def create_cart(session: Session_dp):
     cart = await Cart.create(session=session)
 
-    return cart
+    return cart.id
 
 
 @carts_r.get('/cart_info')
-async def get_cart_info(session: Session_dp, cart_id: uuid.UUID):
+async def get_cart_info(session: Session_dp, cart_id ):
+    if cart_id == 'undefined':
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail='You do not have a cart'
+        )
+
     cart = await Cart.get(session=session, field=Cart.id, value=cart_id)
 
     if not cart:

@@ -36,7 +36,8 @@ class CartItem(PGBase):
             cart_id=cart.id,
             product=painting,
             cart=cart,
-            product_title=painting.title
+            product_title=painting.title,
+            product_description=painting.description
         )
 
         session.add(new)
