@@ -12,13 +12,14 @@ from backend.utils import password_manager
 
 from backend.config import ADMIN_EMAIL, ADMIN_PASSWORD, ADMIN_USERNAME
 from .cart import Cart
+from .enums.user import UserRolesEnum
 
 
 class User(PGBase):
     username: Mapped[str] = mapped_column(String(64))
     email: Mapped[str] = mapped_column(String(128), unique=True)
     password: Mapped[str] = mapped_column()
-    role: Mapped[str] = mapped_column(saEnum('admin', 'user', name='user_roles'), default='user')
+    role: Mapped[UserRolesEnum] = mapped_column(saEnum(UserRolesEnum, name='user_roles'), default=UserRolesEnum.user)
 
     cart: Mapped[uuid.UUID] = mapped_column(ForeignKey('carts.id'))
 
@@ -31,7 +32,6 @@ class User(PGBase):
             )
         
         cart = await Cart.create(session=session)
-        print((user.username, ADMIN_USERNAME), (user.email, ADMIN_EMAIL), (user.password, ADMIN_PASSWORD))
         
         new = cls(
             username=user.username,

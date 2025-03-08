@@ -1,40 +1,22 @@
 from enum import Enum as stdEnum
 import uuid
 
-from sqlalchemy import String, Enum as saEnum
+from sqlalchemy import String, Enum as saEnum, JSON, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
-from backend.models.base import PGBase
-from backend.api.dependencies.db import Session_dp
-from backend.schemas import PaintingSchemaFull, PaintingSchema
-from backend.databases.redis_manager import redis_manager
+from backend.models.product_base import ProductBase
+from .enums.painting import PaintingOrientationEnum
 
 
-class Painting(PGBase):
-    title: Mapped[str] = mapped_column(unique=True)
+class Painting(ProductBase):
+    id: Mapped[uuid.UUID] = mapped_column(ForeignKey('productbases.id'), primary_key=True)
+
     description: Mapped[str] = mapped_column()
-    price: Mapped[int] = mapped_column()
-    available: Mapped[int] = mapped_column()
     
+    width: Mapped[float] = mapped_column()
+    height: Mapped[float] = mapped_column()
+    orientation: Mapped[PaintingOrientationEnum] = mapped_column(saEnum(PaintingOrientationEnum, name='painting_orientation'))
 
-    @classmethod
-    async def create(cls, session: Session_dp, painting: PaintingSchemaFull):
-        new = cls(
-            title=painting.title,
-            description=painting.description,
-            price=painting.price,
-            available=painting.available
-        )
-
-        session.add(new)
-        await session.commit()
-
-        # adding this photo into Redis
-
-        await redis_manager.add_photo(
-            title=new.title,
-            photo=painting.hex_photo
-        )
-
-        return None
-    
+    __mapper_args__ = {
+        'polymorphic_identity': 'painting',
+    }

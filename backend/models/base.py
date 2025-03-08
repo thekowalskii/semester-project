@@ -21,6 +21,17 @@ class PGBase(AsyncAttrs, DeclarativeBase):
         return cls.__name__.lower() + 's'
 
 
+
+    @classmethod
+    async def create(cls, session: Session_dp, **kwargs):
+        instance = cls(**kwargs)
+
+        session.add(instance)
+        await session.commit()
+
+        return instance
+
+
     @classmethod
     async def all(cls, session: Session_dp):
         elems = await session.execute(select(cls))
