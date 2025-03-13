@@ -6,13 +6,13 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from fastapi import HTTPException, status
 
 from backend.models.base import PGBase
-from backend.schemas import UserSchema, UserResponseSchema
+from backend.schemas import UserSchema, UserResponseSchema, UserRolesEnum
 from backend.api.dependencies.db import Session_dp
 from backend.utils import password_manager
 
 from backend.config import ADMIN_EMAIL, ADMIN_PASSWORD, ADMIN_USERNAME
 from .cart import Cart
-from .enums.user import UserRolesEnum
+
 
 
 class User(PGBase):
@@ -49,7 +49,7 @@ class User(PGBase):
             username=new.username,
             email=new.email,
             role=new.role,
-            cart_id=new.cart
+            cart=new.cart
         )
 
         return res

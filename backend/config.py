@@ -25,8 +25,8 @@ REDIS_CONFIG = {
 
 # JWT TOKEN DATA
 
-TOKEN_ALG = os.getenv('JWT_TOKEN_ALG')
-TOKEN_TYPE = os.getenv('JWT_TOKEN_TYPE')
+TOKEN_ALG = os.getenv('JWT_ALG')
+TOKEN_TYPE = os.getenv('JWT_TYPE')
 TOKEN_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 
 # ADMIN DATA

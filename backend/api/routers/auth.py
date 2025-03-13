@@ -3,7 +3,7 @@ import time
 from fastapi import APIRouter, Request, Response, Depends, HTTPException, status, Query
 
 from backend.api.dependencies.db import Session_dp
-from backend.schemas.user import UserSchema, UserSigninForm
+from backend.schemas.user import UserSchema, UserSigninForm, UserResponseSchema
 from backend.models.user import User
 from backend.utils import password_manager
 from backend.services import token_manager
@@ -31,6 +31,8 @@ async def signup(request: Request, response: Response, session: Session_dp, form
     token = token_manager.encode_token(user=user)
     request.session['access_token'] = token
 
+    print(user.role)
+
     return token
 
 
@@ -46,8 +48,9 @@ async def signin(request: Request, response: Response, session: Session_dp, form
         )
 
     password_manager.verify_password(form_data.password, user.password)
-    
     # Creating JWT token to add in cookies
+
+    user = UserResponseSchema.model_validate(user)
 
     token = token_manager.encode_token(user=user)
     request.session['access_token'] = token

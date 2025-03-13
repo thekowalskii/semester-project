@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Mapped, mapped_column
 
 from backend.models.base import PGBase
+from backend.api.dependencies.db import Session_dp
+from backend.databases.redis_manager import redis_manager
 
 
 class ProductBase(PGBase):
@@ -17,3 +19,26 @@ class ProductBase(PGBase):
         "polymorphic_identity": "product_base",
         "polymorphic_on": type
     }
+
+
+class ProductsMethods:
+
+    '''
+    All the goods, such as paintings, perfumes and products,
+    have some similar methods, so i placed those methods here, 
+    to keep my code clear
+    '''
+
+    @classmethod
+    async def create(cls, session: Session_dp, photo_in_hex, **kwargs):
+        instance = cls(**kwargs)
+
+        session.add(instance)
+        await session.commit()
+
+        await redis_manager.add_photo(
+            title=instance.title,
+            photo=photo_in_hex,
+        )
+
+        return instance

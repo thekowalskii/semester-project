@@ -54,7 +54,7 @@ function Home() {
             <main className="products-container">
                 {paintings.data.map((element, index) => (
                     <>
-                        <Product img_obj={element} key={index}/>
+                        <Product item={element} key={index}/>
                     </>
                 ))}
             </main>

@@ -5,26 +5,26 @@ from fastapi.responses import StreamingResponse
 
 from backend.api.dependencies.db import Session_dp
 from backend.api.dependencies.scope import admin_scope_dp
-from backend.schemas import PaintingSchema, parse_painting
+from backend.schemas import ProductSchema, parse_product
 from backend.databases.redis_manager import redis_manager
-from backend.models.painting import Painting
+from backend.models.product import Product
 from backend.services import hex_to_image
 
 
-painting_r = APIRouter(tags=['paintings'], prefix='/paintings')
+products_r = APIRouter(tags=['products'], prefix='/products')
 
 
-@painting_r.post('/create', dependencies=[admin_scope_dp])
-async def create_painting(request: Request, 
+@products_r.post('/create', dependencies=[admin_scope_dp])
+async def create_product(request: Request, 
                          session: Session_dp,
                          painting: UploadFile = File(...),
-                         form_data: PaintingSchema = Depends(parse_painting)
+                         form_data: ProductSchema = Depends(parse_product)
 ):
 
     photo_in_hex = await painting.read()
     photo_in_hex = photo_in_hex.hex()
 
-    painting = await Painting.create(
+    painting = await Product.create(
         session=session,
         photo_in_hex=photo_in_hex,
         title=form_data.title,
@@ -32,19 +32,19 @@ async def create_painting(request: Request,
         description=form_data.description,
         width=form_data.width,
         height=form_data.height,
-        orientation=form_data.orientation
+        materials=form_data.materials
     )
 
     return 'created'
 
 
-@painting_r.get('/get_one')
+@products_r.get('/get_one')
 async def get_product_photo(request: Request, session: Session_dp, title: str):
     title = title.replace('_', ' ')
 
-    painting = await Painting.get(
+    painting = await Product.get(
         session=session, 
-        field=Painting.title, 
+        field=Product.title, 
         value=title
     )
 
@@ -54,9 +54,9 @@ async def get_product_photo(request: Request, session: Session_dp, title: str):
     return StreamingResponse(content=image, media_type='image/png')
 
 
-@painting_r.get('/get_all')
+@products_r.get('/get_all')
 async def get_all(request: Request, session: Session_dp):
-    products = await Painting.all(session=session)
+    products = await Product.all(session=session)
 
     res = [{
         'title': p.title,
@@ -65,14 +65,14 @@ async def get_all(request: Request, session: Session_dp):
         'price': p.price,
         'width': p.width,
         'height': p.height,
-        'orientation': p.orientation
+        'materials': p.materials
     } for p in products]
 
     return res
 
 
-@painting_r.delete('/delete')
+@products_r.delete('/delete')
 async def delete(session: Session_dp, id: uuid.UUID):
-    await Painting.delete(session=session, id=id)
+    await Product.delete(session=session, id=id)
 
     return 204

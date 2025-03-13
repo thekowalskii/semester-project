@@ -4,11 +4,11 @@ import uuid
 from sqlalchemy import String, Enum as saEnum, JSON, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
-from backend.models.product_base import ProductBase
-from .enums.painting import PaintingOrientationEnum
+from backend.models.product_base import ProductBase, ProductsMethods
+from backend.schemas import PaintingOrientationEnum
 
 
-class Painting(ProductBase):
+class Painting(ProductsMethods, ProductBase):
     id: Mapped[uuid.UUID] = mapped_column(ForeignKey('productbases.id'), primary_key=True)
 
     description: Mapped[str] = mapped_column()
@@ -20,3 +20,4 @@ class Painting(ProductBase):
     __mapper_args__ = {
         'polymorphic_identity': 'painting',
     }
+    

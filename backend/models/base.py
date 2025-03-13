@@ -21,7 +21,6 @@ class PGBase(AsyncAttrs, DeclarativeBase):
         return cls.__name__.lower() + 's'
 
 
-
     @classmethod
     async def create(cls, session: Session_dp, **kwargs):
         instance = cls(**kwargs)

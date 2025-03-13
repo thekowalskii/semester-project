@@ -3,6 +3,9 @@ from typing import Optional
 from pydantic import BaseModel, field_validator
 from fastapi import Form
 
+from .user import UserSchema, UserResponseSchema
+from .enums.painting import PaintingOrientationEnum
+
 
 class PaintingSchema(BaseModel):
     '''
@@ -11,8 +14,9 @@ class PaintingSchema(BaseModel):
     title: str
     description: Optional[str] = Form(None)
     price: int
-    available: int
-
+    width: float
+    height: float
+    orientation: str
 
     @field_validator('description')
     def validate_description(v):
@@ -26,9 +30,13 @@ def parse_painting(
     title: str = Form(...),
     description: str | None = Form(None),
     price: int = Form(...),
-    available: int = Form(...)
+    available: int = Form(...),
+    width: float = Form(...),
+    height: float = Form(...),
+    orientation: PaintingOrientationEnum = Form(...)
 ) -> PaintingSchema:
-    return PaintingSchema(title=title, description=description, price=price, available=available)
+    return PaintingSchema(title=title, description=description, price=price, 
+                          available=available, width=width, height=height, orientation=orientation)
 
 
 class PaintingSchemaFull(PaintingSchema):

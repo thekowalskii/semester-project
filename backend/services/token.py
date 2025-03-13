@@ -13,9 +13,9 @@ class TokenManager:
     Hello
     '''
     def __init__(self,
-                 alg: str = TOKEN_ALG,
-                 type: str = TOKEN_TYPE,
-                 secret_key: str = TOKEN_SECRET_KEY
+                 alg: str = 'HS256',
+                 type: str = 'WJT',
+                 secret_key: str = 'cif_kif_300_3hunna'
     ):
         self._alg = alg
         self._type = type

@@ -4,7 +4,7 @@ from sqlalchemy import Enum as saEnum, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from backend.models.base import PGBase
-from .enums.cart import CartStatusEnum
+from backend.schemas import CartStatusEnum
 
 
 class Cart(PGBase):

@@ -20,6 +20,22 @@ async def create_cart(session: Session_dp):
     return cart.id
 
 
+@carts_r.post('/add_product')
+async def add_product(session: Session_dp,
+                      cart_id: uuid.UUID = Form(...),
+                      product_id = Form(...),
+                      quantity: int = Form(...)
+):
+    res = await add_item(
+        session=session, 
+        cart_id=cart_id, 
+        product_id=product_id, 
+        quantity=quantity
+    )
+
+    return res
+
+
 @carts_r.get('/cart_info')
 async def get_cart_info(session: Session_dp, cart_id ):
     if cart_id == 'undefined':
@@ -41,22 +57,6 @@ async def get_cart_info(session: Session_dp, cart_id ):
     }
 
     return info
-
-
-@carts_r.post('/add_product')
-async def add_product(session: Session_dp,
-                      cart_id: uuid.UUID = Form(...),
-                      product_id = Form(...),
-                      quantity: int = Form(...)
-):
-    res = await add_item(
-        session=session, 
-        cart_id=cart_id, 
-        product_id=product_id, 
-        quantity=quantity
-    )
-
-    return res
 
 
 @carts_r.delete('/remove_product')
