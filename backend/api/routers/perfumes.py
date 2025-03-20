@@ -42,6 +42,8 @@ async def create_perfume(request: Request,
 
 @perfumes_r.get('/get_one')
 async def get_product_photo(request: Request, session: Session_dp, title: str):
+    title = title.replace('_', ' ')
+
     perfume = await Perfume.get(
         session=session, 
         field=Perfume.title, 
@@ -60,6 +62,7 @@ async def get_all(request: Request, session: Session_dp):
 
     res = [{
         'title': p.title,
+        'title_wos': p.title.replace(' ', '_'),
         'description': p.description,
         'price': p.price,
         'available': p.available,

@@ -26,7 +26,7 @@ class ProductsMethods:
     '''
     All the goods, such as paintings, perfumes and products,
     have some similar methods, so i placed those methods here, 
-    to keep my code clear
+    to keep my code clear and to not repeat myself
     '''
 
     @classmethod

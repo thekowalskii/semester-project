@@ -3,16 +3,11 @@ import { useEffect, useState } from 'react';
 import api from '../../api'
 
 
-function ProductDetails({ item }) {
-
-}
-
-
-function Product({ item }) {
-    const url = 'http://127.0.0.1:8000/products/get_one?title=' + item.title_wos
+function Perfume({ item }) {
+    const url = 'http://127.0.0.1:8000/perfumes/get_one?title=' + item.title_wos
 
     return (
-        <div className='product-container' key={item.title + '_pc'} onClick={() => console.log()}>
+        <div className='product-container' key={item.title + '_pc'}>
             <div className="image" key={item.title + '_image'} style={
                 {
                     width: '100%',
@@ -29,10 +24,12 @@ function Product({ item }) {
                 <h3 key={item.title + '_p'}>Price: {item.price}₴</h3>
                 <p key={item.title + '_d'}>
                     {item.description}
+                    <br key={item.title + '_d_br'}/>
+                    {item.available}
                 </p>
             </div>
         </div>
     )
 }
 
-export default Product
+export default Perfume
