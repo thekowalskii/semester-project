@@ -1,17 +1,18 @@
 import uuid
 
-from fastapi import APIRouter, Request, Depends, UploadFile, File
+from fastapi import APIRouter, Request, Depends, UploadFile, File, Header
 from fastapi.responses import StreamingResponse
 
 from backend.api.dependencies.db import Session_dp
 from backend.api.dependencies.scope import admin_scope_dp
+from backend.api.dependencies.api_key import api_key_dp
 from backend.schemas import PaintingSchema, parse_painting
 from backend.databases.redis_manager import redis_manager
 from backend.models.painting import Painting
 from backend.services import hex_to_image
 
 
-painting_r = APIRouter(tags=['paintings'], prefix='/paintings')
+painting_r = APIRouter(tags=['paintings'], prefix='/paintings', dependencies=[api_key_dp])
 
 
 @painting_r.post('/create', dependencies=[admin_scope_dp])
@@ -54,7 +55,7 @@ async def get_product_photo(request: Request, session: Session_dp, title: str):
     return StreamingResponse(content=image, media_type='image/png')
 
 
-@painting_r.get('/get_all')
+@painting_r.get('/get_all', dependencies=[api_key_dp])
 async def get_all(request: Request, session: Session_dp):
     products = await Painting.all(session=session)
 

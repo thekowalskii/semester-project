@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import api from "../../api";
+import api from "../api";
 import Cookies from 'js-cookie';
 
 import CartItem from "./CartItem";

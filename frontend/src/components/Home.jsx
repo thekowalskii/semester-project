@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
-
 import Cookies from 'js-cookie'
 
-import api from "../../api"
-
+// import API_KEY from '../config'
+import api from "../api"
 import Header from "./Header"
 import Product from "./Product"
 import Painting from "./Painting"

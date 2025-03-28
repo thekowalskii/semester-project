@@ -1,5 +1,5 @@
 // import { send } from "vite";
-import api from "../../api";
+import api from "../api";
 
 import Cookies from 'js-cookie';
 
@@ -11,7 +11,7 @@ function SignIn() {
             password: password
         }
 
-        await api.post('/signin', data)
+        await api.post('/auth/signin', data)
             .then((response) => {
                 // console.log(response.data.email)
                 let token = response.data.token

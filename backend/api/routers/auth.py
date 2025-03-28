@@ -3,17 +3,18 @@ import time
 from fastapi import APIRouter, Request, Response, Depends, HTTPException, status, Query
 
 from backend.api.dependencies.db import Session_dp
+from backend.api.dependencies.api_key import api_key_dp
 from backend.schemas.user import UserSchema, UserSigninForm, UserResponseSchema
 from backend.models.user import User
 from backend.utils import password_manager
 from backend.services import token_manager
 
 
-auth_r = APIRouter(tags=['auth'])
+auth_r = APIRouter(tags=['auth'], prefix='/auth', dependencies=[api_key_dp])
 
 
 @auth_r.post('/signup')
-async def signup(request: Request, response: Response, session: Session_dp, form_data: UserSchema = Depends()):
+async def signup(request: Request, response: Response, session: Session_dp, form_data: UserSchema):
 
     user = await User.get(session=session, field=User.email, value=form_data.email)
 

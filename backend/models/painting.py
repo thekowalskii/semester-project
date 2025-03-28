@@ -20,4 +20,3 @@ class Painting(ProductsMethods, ProductBase):
     __mapper_args__ = {
         'polymorphic_identity': 'painting',
     }
-    

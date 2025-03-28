@@ -13,33 +13,17 @@ ascii_letters = ascii_letters + ' '
 
 
 class UserSigninForm(BaseModel):
-    # def __init__(self,
-    #              email: EmailStr = Form(...),
-    #             password: str = Form(...),
-    # ):
-    #     self.email = email
-    #     self.password = password
-
     email: EmailStr
     password: str
 
 
 class UserSchema(BaseModel):
-    username: str 
-    email: EmailStr
-    password: str
-
-    @field_validator('email')
-    def validate_email(v):
-        if len(v) > 128:
-            raise ValueError('Email cannot be longer than 64 symbols')
-
-        return v
+    username: str = Field(..., max_length=64)
+    email: EmailStr = Field(..., max_length=128)
+    password: str = Field(..., min_length=12)
     
     @field_validator('username')
     def validate_username(v):
-        if len(v) > 64:
-            raise ValueError('Username cannot be longer than 64 symbols')
 
         for letter in v:
             if letter not in ascii_letters:

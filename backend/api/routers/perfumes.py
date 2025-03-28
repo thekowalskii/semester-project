@@ -5,13 +5,14 @@ from fastapi.responses import StreamingResponse
 
 from backend.api.dependencies.db import Session_dp
 from backend.api.dependencies.scope import admin_scope_dp
+from backend.api.dependencies.api_key import api_key_dp
 from backend.schemas import PerfumeSchema, parse_perfume
 from backend.databases.redis_manager import redis_manager
 from backend.models import Perfume
 from backend.services import hex_to_image
 
 
-perfumes_r = APIRouter(tags=['perfumes'], prefix='/perfumes')
+perfumes_r = APIRouter(tags=['perfumes'], prefix='/perfumes', dependencies=[api_key_dp])
 
 
 @perfumes_r.post('/create', dependencies=[admin_scope_dp])

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Cookies from 'js-cookie';
 
 import SignIn from "./SignInForm";
-import api from "../../api";
+import api from "../api";
 import { useState } from "react";
 
 

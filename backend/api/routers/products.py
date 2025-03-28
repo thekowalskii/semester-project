@@ -5,13 +5,14 @@ from fastapi.responses import StreamingResponse
 
 from backend.api.dependencies.db import Session_dp
 from backend.api.dependencies.scope import admin_scope_dp
+from backend.api.dependencies.api_key import api_key_dp
 from backend.schemas import ProductSchema, parse_product
 from backend.databases.redis_manager import redis_manager
 from backend.models.product import Product
 from backend.services import hex_to_image
 
 
-products_r = APIRouter(tags=['products'], prefix='/products')
+products_r = APIRouter(tags=['products'], prefix='/products', dependencies=[api_key_dp])
 
 
 @products_r.post('/create', dependencies=[admin_scope_dp])
