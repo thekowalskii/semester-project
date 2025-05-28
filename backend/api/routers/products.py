@@ -12,7 +12,7 @@ from backend.models.product import Product
 from backend.services import hex_to_image
 
 
-products_r = APIRouter(tags=['products'], prefix='/products', dependencies=[api_key_dp])
+products_r = APIRouter(tags=['products'], prefix='/products')
 
 
 @products_r.post('/create', dependencies=[admin_scope_dp])

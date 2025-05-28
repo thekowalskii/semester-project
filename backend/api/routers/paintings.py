@@ -12,7 +12,7 @@ from backend.models.painting import Painting
 from backend.services import hex_to_image
 
 
-painting_r = APIRouter(tags=['paintings'], prefix='/paintings', dependencies=[api_key_dp])
+painting_r = APIRouter(tags=['paintings'], prefix='/paintings')
 
 
 @painting_r.post('/create', dependencies=[admin_scope_dp])
@@ -55,7 +55,7 @@ async def get_product_photo(request: Request, session: Session_dp, title: str):
     return StreamingResponse(content=image, media_type='image/png')
 
 
-@painting_r.get('/get_all', dependencies=[api_key_dp])
+@painting_r.get('/get_all')
 async def get_all(request: Request, session: Session_dp):
     products = await Painting.all(session=session)
 

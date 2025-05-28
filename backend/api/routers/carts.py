@@ -11,7 +11,7 @@ from backend.api.crud.cart_items import add_item, remove_item
 from backend.api.dependencies.carts import user_email_dp
 
 
-carts_r = APIRouter(tags=['carts'], prefix='/carts', dependencies=[api_key_dp])
+carts_r = APIRouter(tags=['carts'], prefix='/carts')
 
 
 @carts_r.post('/create')

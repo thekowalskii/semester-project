@@ -28,5 +28,3 @@ dist-ssr
 .env
 poetry.lock
 __pycache__
-
-api.js

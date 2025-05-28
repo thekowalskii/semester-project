@@ -10,7 +10,7 @@ from backend.utils import password_manager
 from backend.services import token_manager
 
 
-auth_r = APIRouter(tags=['auth'], prefix='/auth', dependencies=[api_key_dp])
+auth_r = APIRouter(tags=['auth'], prefix='/auth')
 
 
 @auth_r.post('/signup')

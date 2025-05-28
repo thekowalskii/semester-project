@@ -12,7 +12,7 @@ from backend.models import Perfume
 from backend.services import hex_to_image
 
 
-perfumes_r = APIRouter(tags=['perfumes'], prefix='/perfumes', dependencies=[api_key_dp])
+perfumes_r = APIRouter(tags=['perfumes'], prefix='/perfumes')
 
 
 @perfumes_r.post('/create', dependencies=[admin_scope_dp])
