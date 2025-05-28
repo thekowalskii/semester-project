@@ -6,3 +6,4 @@ from .product import ProductSchema, ProductSchemaFull, parse_product
 from .enums.cart import CartStatusEnum
 from .enums.painting import PaintingOrientationEnum
 from .enums.user import UserRolesEnum
+from .enums.order import OrderStatusEnum

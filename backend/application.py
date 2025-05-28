@@ -9,7 +9,6 @@ from backend.databases.pg_manager import pg_manager, check_pg_connection
 from backend.databases.redis_manager import redis_manager
 from backend.config import PG_CONFIG, SESSION_MIDDLEWARE_SECRET_KEY
 from backend.utils.logger import app_log
-from backend.middleware.APIKeyMiddleware import APIKeyMiddleware
 
 
 class App:
