@@ -3,7 +3,6 @@ import time
 from fastapi import APIRouter, Request, Response, Depends, HTTPException, status, Query
 
 from backend.api.dependencies.db import Session_dp
-from backend.api.dependencies.api_key import api_key_dp
 from backend.schemas.user import UserSchema, UserSigninForm, UserResponseSchema
 from backend.models.user import User
 from backend.utils import password_manager

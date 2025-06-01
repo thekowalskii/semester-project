@@ -5,7 +5,6 @@ from fastapi.responses import StreamingResponse
 
 from backend.api.dependencies.db import Session_dp
 from backend.api.dependencies.scope import admin_scope_dp
-from backend.api.dependencies.api_key import api_key_dp
 from backend.schemas import PerfumeSchema, parse_perfume
 from backend.databases.redis_manager import redis_manager
 from backend.models import Perfume
