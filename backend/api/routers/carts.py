@@ -4,7 +4,6 @@ import uuid
 from fastapi import APIRouter, Request, Response, Depends, HTTPException, status, Form
 
 from backend.api.dependencies.db import Session_dp
-from backend.api.dependencies.api_key import api_key_dp
 from backend.schemas.user import UserSchema, UserSigninForm
 from backend.models.user import Cart
 from backend.api.crud.cart_items import add_item, remove_item
