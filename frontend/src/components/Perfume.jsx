@@ -45,7 +45,7 @@ function Perfume({ item }) {
                 <h3 key={item.title + '_t'}>{item.title}</h3>
                 <h3 key={item.title + '_p'}>Price: {item.price}₴</h3>
                 <p key={item.title + '_d'}>
-                    {item.description}
+                    {item.short_description}
                     <br key={item.title + '_d_br'}/>
                     {item.available}
                 </p>

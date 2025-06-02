@@ -64,6 +64,7 @@ async def get_all(request: Request, session: Session_dp):
         'title': p.title,
         'title_wos': p.title.replace(' ', '_'),
         'description': p.description,
+        'short_description': p.description if len(p.description) <= 23 else p.description[0:20] + '...',
         'price': p.price,
         'available': p.available,
         'volume': p.volume,
