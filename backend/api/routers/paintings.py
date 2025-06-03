@@ -1,6 +1,6 @@
 import uuid
 
-from fastapi import APIRouter, Request, Depends, UploadFile, File, Header
+from fastapi import APIRouter, Request, Depends, UploadFile, File, Header, Query
 from fastapi.responses import StreamingResponse
 
 from backend.api.dependencies.db import Session_dp
@@ -60,7 +60,7 @@ async def get_all(request: Request, session: Session_dp):
 
     res = [{
         'title': p.title,
-        'title_wos': p.title.replace(' ', '_'),
+        'title_wos': p.title.replace(' ', '_'), # "wos" - means "without spaces", so all the spaces are replaced with underscore
         'description': p.description,
         'short_description': p.description if len(p.description) <= 23 else p.description[0:20] + '...',
         'price': p.price,
@@ -77,3 +77,21 @@ async def delete(session: Session_dp, id: uuid.UUID):
     await Painting.delete(session=session, id=id)
 
     return 204
+
+
+@painting_r.get('/info')
+async def get_info(request: Request, session: Session_dp, id: uuid.UUID = Query(...)):
+    painting = await Painting.get(session=session, field=Painting.id, value=id)
+
+    return {
+        'id': painting.id,
+        'title': painting.title,
+        'title': painting.title,
+        'title_wos': painting.title.replace(' ', '_'), # "wos" - means "without spaces", so all the spaces are replaced with underscore
+        'description': painting.description,
+        'short_description': painting.description if len(painting.description) <= 23 else painting.description[0:20] + '...',
+        'price': painting.price,
+        'width': painting.width,
+        'height': painting.height,
+        'orientation': painting.orientation
+    }
