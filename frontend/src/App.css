@@ -40,3 +40,40 @@
 .read-the-docs {
   color: #888;
 }
+
+.card-order-button {
+  background-color: violet;
+}
+
+.order {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.order-item {
+  background-color: rgb(255, 224, 178);
+}
+
+.order-form {
+
+}
+
+.order-form-item {
+  margin-bottom: 20px;
+  width: 200%;  
+  background-color: rgb(255, 224, 178);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.order-input-field {
+  width: 130%;
+}
+
+.error-field {
+  color: red
+}

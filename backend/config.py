@@ -15,14 +15,6 @@ PG_CONFIG: str = 'postgresql+asyncpg://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_POR
     PG_NAME=os.getenv('PG_NAME'),
     PG_PORT=os.getenv('PG_PORT')
 )
-
-REDIS_CONFIG = {
-    'user': os.getenv('REDIS_USER'),
-    'password': os.getenv('REDIS_PASSWORD'),
-    'host': os.getenv('REDIS_HOST'),
-    'port': os.getenv('REDIS_PORT')
-}
-
 # JWT TOKEN DATA
 
 TOKEN_ALG = os.getenv('JWT_ALG')

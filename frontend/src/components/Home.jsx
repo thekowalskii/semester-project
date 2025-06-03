@@ -8,6 +8,8 @@ import Product from "./Product"
 import Painting from "./Painting"
 import Perfume from "./Perfume"
 
+import CartItemTest from '../components/elements/CartItemTest/CartItemTest'
+
 
 function checkToken() {
   let token = Cookies.get('access_token')
@@ -104,6 +106,10 @@ function Home() {
                     ))}
                 </section>
             </main>
+
+            
+            <CartItemTest />
+
         </>
     )
 }
