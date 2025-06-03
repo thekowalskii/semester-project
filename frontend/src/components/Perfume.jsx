@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import api from '../api'
 
 
-function Perfume({ item }) {
+function Perfume({ item, onClick }) {
     const [imageUrl, setImageUrl] = useState("");
 
     const img_url = 'http://127.0.0.1:8000/perfumes/get_one?title=' + item.title_wos
@@ -20,26 +20,17 @@ function Perfume({ item }) {
     }, []);
 
     return (
-        <div className='product-container' key={item.title + '_pc'}>
-            {/* <div className="image" key={item.title + '_image'} style={
+        <div className='product-container' key={item.title + '_pc'} onClick={() => onClick(item, 'perfume', false, imageUrl)} >
+            <div className="image" key={item.title + '_image'} style={
                 {
                     width: '100%',
                     height: '200px',
-                    backgroundImage: `url(${url})`,
+                    backgroundImage: `url(${imageUrl})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat'
                 }
-            }></div> */}
-
-            <img src={imageUrl} alt=""  className='image' style={{
-                width: '100%',
-                height: '200px',
-                backgroundImage: `url(${img_url})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
-            }} />
+            }></div>
             
             <div className="info" key={item.title + '_info'}>
                 <h3 key={item.title + '_t'}>{item.title}</h3>
