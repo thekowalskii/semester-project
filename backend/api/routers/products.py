@@ -1,6 +1,6 @@
 import uuid
 
-from fastapi import APIRouter, Request, Depends, UploadFile, File
+from fastapi import APIRouter, Request, Depends, UploadFile, File, Query
 from fastapi.responses import StreamingResponse
 
 from backend.api.dependencies.db import Session_dp
@@ -60,7 +60,7 @@ async def get_all(request: Request, session: Session_dp):
 
     res = [{
         'title': p.title,
-        'title_wos': p.title.replace(' ', '_'),
+        'title_wos': p.title.replace(' ', '_'), # "wos" - means "without spaces", so all the spaces are replaced with underscore
         'description': p.description,
         'short_description': p.description if len(p.description) <= 23 else p.description[0:20] + '...',
         'price': p.price,
@@ -77,3 +77,21 @@ async def delete(session: Session_dp, id: uuid.UUID):
     await Product.delete(session=session, id=id)
 
     return 204
+
+
+@products_r.get('/info')
+async def get_info(request: Request, session: Session_dp, id: uuid.UUID = Query(...)):
+    product = await Product.get(session=session, field=Product.id, value=id)
+
+    return {
+        'id': product.id,
+        'title': product.title,
+        'title': product.title,
+        'title_wos': product.title.replace(' ', '_'), # "wos" - means "without spaces", so all the spaces are replaced with underscore
+        'description': product.description,
+        'short_description': product.description if len(product.description) <= 23 else product.description[0:20] + '...',
+        'price': product.price,
+        'materials': product.materials,
+        'width': product.width,
+        'height': product.height
+    }
