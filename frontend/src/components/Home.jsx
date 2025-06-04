@@ -9,6 +9,8 @@ import Painting from "./Painting"
 import Perfume from "./Perfume"
 import ProductModal from "./ProductModal"
 
+import CartItemTest from '../components/elements/CartItemTest/CartItemTest'
+
 
 function checkToken() {
   let token = Cookies.get('access_token')
@@ -143,6 +145,10 @@ function Home() {
                     type={selectedProductType} 
                     imgUrl={selectedProductImageUrl} />
             </main>
+
+            
+            <CartItemTest />
+
         </>
     )
 }
