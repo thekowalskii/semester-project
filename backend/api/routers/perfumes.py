@@ -1,11 +1,10 @@
 import uuid
 
-from fastapi import APIRouter, Request, Depends, UploadFile, File
+from fastapi import APIRouter, Request, Depends, UploadFile, File, Query
 from fastapi.responses import StreamingResponse
 
 from backend.api.dependencies.db import Session_dp
 from backend.api.dependencies.scope import admin_scope_dp
-from backend.api.dependencies.api_key import api_key_dp
 from backend.schemas import PerfumeSchema, parse_perfume
 from backend.databases.redis_manager import redis_manager
 from backend.models import Perfume
@@ -63,8 +62,9 @@ async def get_all(request: Request, session: Session_dp):
 
     res = [{
         'title': p.title,
-        'title_wos': p.title.replace(' ', '_'),
+        'title_wos': p.title.replace(' ', '_'), # "wos" - means "without spaces", so all the spaces are replaced with underscore
         'description': p.description,
+        'short_description': p.description if len(p.description) <= 23 else p.description[0:20] + '...',
         'price': p.price,
         'available': p.available,
         'volume': p.volume,
@@ -81,3 +81,23 @@ async def delete(session: Session_dp, id: uuid.UUID):
     await Perfume.delete(session=session, id=id)
 
     return 204
+
+
+@perfumes_r.get('/info')
+async def get_info(request: Request, session: Session_dp, id: uuid.UUID = Query(...)):
+    perfume = await Perfume.get(session=session, field=Perfume.id, value=id)
+
+    return {
+        'id': perfume.id,
+        'title': perfume.title,
+        'title': perfume.title,
+        'title_wos': perfume.title.replace(' ', '_'), # "wos" - means "without spaces", so all the spaces are replaced with underscore
+        'description': perfume.description,
+        'short_description': perfume.description if len(perfume.description) <= 23 else perfume.description[0:20] + '...',
+        'price': perfume.price,
+        'first_notes': perfume.first_notes,
+        'perfume_heart': perfume.perfume_heart,
+        'last_notes': perfume.last_notes,
+        'available': perfume.available,
+        'volume': perfume.volume,
+    }

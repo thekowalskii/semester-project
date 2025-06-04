@@ -16,12 +16,18 @@ export const OrderContextProvider = ({ children }) => {
     const [ lastNameError, setLastNameError ] = useState("Invalid last name")
     const [ phoneNumberError, setPhoneNumberError ] = useState("Invalid phone number")
     const [ selectedShipping, setSelectedShipping ] = useState(null)
+    const [ selectedShippingConditions, setSelectedShippingConditions ] = useState(null)
+	const [ selectedPayment, setSelectedPayment ] = useState(null)
 
     useEffect(() => {
         const fetchItemData = async() => {
 
         }
     }, [])
+
+    const changeShippingConditions = function(event) {
+        setSelectedShippingConditions(event.target.value)
+    }
 
 	return (
 		<OrderContext.Provider
@@ -36,13 +42,18 @@ export const OrderContextProvider = ({ children }) => {
 				lastName,
 				setLastName,
 				firstNameError,
-                setFirstNameError,
-                lastNameError,
-                setLastNameError,
-                phoneNumberError,
-                setPhoneNumberError,
-                selectedShipping,
-                setSelectedShipping
+				setFirstNameError,
+				lastNameError,
+				setLastNameError,
+				phoneNumberError,
+				setPhoneNumberError,
+				selectedShipping,
+				setSelectedShipping,
+				selectedShippingConditions,
+				changeShippingConditions,
+				setSelectedShippingConditions,
+				setSelectedPayment,
+				selectedPayment
 			}}
 		>
 			{children}

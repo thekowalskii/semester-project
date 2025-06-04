@@ -77,3 +77,11 @@
 .error-field {
   color: red
 }
+
+.order-radio {
+  background-color: green;
+}
+
+.shipping-radio {
+  color: yellow;
+}

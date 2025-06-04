@@ -7,6 +7,7 @@ import Header from "./Header"
 import Product from "./Product"
 import Painting from "./Painting"
 import Perfume from "./Perfume"
+import ProductModal from "./ProductModal"
 
 import CartItemTest from '../components/elements/CartItemTest/CartItemTest'
 
@@ -31,6 +32,11 @@ function checkCart() {
 
 
 function Home() {
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [selectedProductType, setSelectedProductType] = useState(null);
+    const [availableScroll, setAvailableScroll] = useState(true);
+    const [selectedProductImageUrl, setSelectedProductImageUrl] = useState(null);
+
     const [paintings, setPaintings] = useState([])
     const [perfumes, setPerfumes] = useState([])
     const [products, setProducts] = useState([])
@@ -40,6 +46,32 @@ function Home() {
     const [email, setEmail] = useState(checkEmail())
     const [cart, setCart] = useState(checkCart())
 
+    // the function below is used to do three actions at one moment: 
+    // 1. set selected product
+    // 2. set its type (painting/perfume/product)
+    // 3. allow/prohibit page scrolling
+    //
+    // all this is used when user open/close the modal window with 
+    // a product information
+    //
+    // this approach is more confortable, since we need to call it
+    // in our components, it it wouldn't be that comfortable to do
+    // all this in each place we need to
+
+    function setSelectedProduct_(product, type, allowScroll, imgUrl){
+        setSelectedProduct(product);
+        setSelectedProductType(type);
+        setAvailableScroll(allowScroll);
+        setSelectedProductImageUrl(imgUrl);
+
+        if (allowScroll === false) {
+            // prohibit to scroll the page (the modal window is closed)
+            document.body.style.overflow = 'hidden'
+        } else {
+            // allow to scroll the page (the modal window is opened)
+            document.body.style.overflow = 'auto'
+        }
+    }
 
     useEffect(() => {
         const getPaintings = async () => {
@@ -77,34 +109,41 @@ function Home() {
         <>
             <Header />
 
-
             <main>
                 <h2>Paintings</h2>
                 <section>
-                    {paintings.length == 0 ? <h6>No paintings provided</h6> :  paintings.map((element, index) => (
+                    {paintings.length == 0 ? <h3>No paintings provided</h3> :  paintings.map((element, index) => (
                         <>
-                            <Painting item={element} key={index}/>
+                            <Painting item={element} onClick={setSelectedProduct_} key={index}/>
                         </>
                     ))}
                 </section>
 
                 <h2>Perfumes</h2>
                 <section>
-                    {perfumes.length == 0 ? <h1>No perfumes provided</h1> : perfumes.map((element, index) => (
+                    {perfumes.length == 0 ? <h3>No perfumes provided</h3> : perfumes.map((element, index) => (
                         <>
-                            <Perfume item={element} key={index}/>
+                            <Perfume item={element} onClick={setSelectedProduct_} key={index}/>
                         </>
                     ))}
                 </section>
 
                 <h2>Products</h2>
                 <section>
-                    {products.length == 0 ? <h1>No products provided</h1> : products.map((element, index) => (
+                    {products.length == 0 ? <h3>No products provided</h3> : products.map((element, index) => (
                         <>
-                            <Product item={element} key={index}/>
+                            <Product item={element} onClick={setSelectedProduct_} key={index}/>
                         </>
                     ))}
                 </section>
+
+                <ProductModal 
+                    product={selectedProduct} 
+                    onClose={() => {
+                        setSelectedProduct_(null, null, true);
+                    }}
+                    type={selectedProductType} 
+                    imgUrl={selectedProductImageUrl} />
             </main>
 
             
