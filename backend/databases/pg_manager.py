@@ -91,5 +91,3 @@ async def check_pg_connection():
 async def get_db_session():
     async with pg_manager.session() as session:
         yield session
-
-

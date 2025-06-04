@@ -14,6 +14,11 @@ export default function OrderShipping() {
         setSelectedShipping(event.target.value)
     }
 
+	function clear() {
+		setSelectedShippingConditions(null)
+		setSelectedShipping(null)
+	}
+
 	return (
 		<div className='order-form-item'>
 			<h2>Shipping</h2>
@@ -53,6 +58,10 @@ export default function OrderShipping() {
 				/>
 				{selectedShipping === 'meest' && <MeestShipping />}
 			</div>
+			<button 
+			className='clear-button'
+			onClick={clear}>
+			Clear shipping options</button>
 		</div>
 	)
 }

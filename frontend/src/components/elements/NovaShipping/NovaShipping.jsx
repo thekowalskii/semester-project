@@ -1,10 +1,16 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { OrderContext } from '../../../context/OrderContext'
 
 
 function NovaShipping() {
 
     const { selectedShippingConditions, changeShippingConditions } = useContext(OrderContext)
+
+	const [ localities, setLocalities ] = useState([])
+
+	useEffect(() => {
+
+	}, [])
     
     return (
 			<div>

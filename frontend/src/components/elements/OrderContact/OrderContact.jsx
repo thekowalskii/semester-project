@@ -19,6 +19,10 @@ export default function OrderContact() {
     }
 
     useEffect(() => {
+        if (!phoneNumber || phoneNumber.length === 0) {
+			setPhoneNumberError("Phone number name can't be empty")
+            return
+        }
         const regexPattern = /^(\+?\d{1,3}[- ]?)?(\(?\d{2,4}\)?[- ]?)?\d{3,4}[- ]?\d{4}$/
         let isValidNumber = regexPattern.test(phoneNumber)
         if (!isValidNumber) {
@@ -29,6 +33,10 @@ export default function OrderContact() {
     }, [phoneNumber])
 
     useEffect(() => {
+        if (!firstName || firstName.length === 0) {
+            setFirstNameError("First name can't be empty")
+            return
+        }
         const regexPatter = /^\p{L}+$/u
         let isValidFirstName = regexPatter.test(firstName)
         if (!isValidFirstName || firstName.length < 1 || firstName.length > 30) {
@@ -39,6 +47,10 @@ export default function OrderContact() {
         }, [firstName])
 
     useEffect(() => {
+        if (!lastName || lastName.length === 0) {
+            setLastNameError("Last name can't be empty")
+            return
+        }
         const regexPatter = /^\p{L}+$/u
         let isValidLastName = regexPatter.test(lastName)
         if (!isValidLastName || lastName.length < 1 || lastName.length > 30) {
@@ -47,6 +59,12 @@ export default function OrderContact() {
                     setLastNameError('')
                 }
     }, [lastName])
+
+    function clear() {
+        setPhoneNumber('')
+        setFirstName('')
+        setLastName('')
+    }
 
     return (
             <div className='order-form-item'>
@@ -87,6 +105,10 @@ export default function OrderContact() {
                         <p className='error-field'>{lastNameError}</p>
                     </div>
                 </div>
+                <button 
+                className='clear-button'
+                onClick={clear}
+                >Clear contact data</button>
             </div>
         )
 

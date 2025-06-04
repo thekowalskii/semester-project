@@ -5,7 +5,7 @@ function CartItemOrderButtonTest() {
     const navigate = useNavigate()
 
     const handleOrder = () => {
-        navigate('/cart/order/test-item')
+        navigate('/cart/order/7bafc400-8e46-4925-9f33-1b2e11c6002a')
     }
 
 	return (

@@ -1,6 +1,7 @@
 import OrderContact from "../OrderContact/OrderContact"
 import OrderShipping from "../OrderShipping/OrderShipping"
 import OrderPayment from '../../elements/OrderPayment/OrderPayment'
+import OrderClearButton from "../OrderClearButton/OrderClearButton"
 
 
 export default function OrderForm() {
@@ -11,6 +12,7 @@ export default function OrderForm() {
                 <OrderContact />
                 <OrderShipping />
                 <OrderPayment />
+                <OrderClearButton />
 			</div>
 		)
 

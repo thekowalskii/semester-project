@@ -10,6 +10,10 @@ export default function OrderPayment() {
         setSelectedPayment(event.target.value)
     }
 
+    function clear() {
+        setSelectedPayment(null)
+    }
+
     return (
 			<div className='order-form-item'>
 				<h2>Payment</h2>
@@ -35,6 +39,9 @@ export default function OrderPayment() {
 						onChange={changePayment}
 					/>
 				</div>
+				<button className='clear-button' onClick={clear}>
+					Clear payment methods
+				</button>
 			</div>
 		)
 }
