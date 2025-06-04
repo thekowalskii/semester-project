@@ -29,6 +29,7 @@ async def create_painting(request: Request,
         photo_in_hex=photo_in_hex,
         title=form_data.title,
         price=form_data.price,
+        currency=form_data.currency,
         description=form_data.description,
         width=form_data.width,
         height=form_data.height,
@@ -64,6 +65,7 @@ async def get_all(request: Request, session: Session_dp):
         'description': p.description,
         'short_description': p.description if len(p.description) <= 23 else p.description[0:20] + '...',
         'price': p.price,
+        'currency': p.currency,
         'width': p.width,
         'height': p.height,
         'orientation': p.orientation
@@ -91,6 +93,7 @@ async def get_info(request: Request, session: Session_dp, id: uuid.UUID = Query(
         'description': painting.description,
         'short_description': painting.description if len(painting.description) <= 23 else painting.description[0:20] + '...',
         'price': painting.price,
+        'currency': painting.currency,
         'width': painting.width,
         'height': painting.height,
         'orientation': painting.orientation
