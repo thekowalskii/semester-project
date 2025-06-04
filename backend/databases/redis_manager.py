@@ -1,6 +1,6 @@
 import uuid
 
-import aioredis
+from redis import asyncio as aioredis
 from fastapi import HTTPException, status
 
 
