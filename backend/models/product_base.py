@@ -1,8 +1,10 @@
 from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Enum as saEnum
 
 from backend.models.base import PGBase
 from backend.api.dependencies.db import Session_dp
 from backend.databases.redis_manager import redis_manager
+from backend.schemas import PriceCurrencyEnum
 
 
 class ProductBase(PGBase):
@@ -13,6 +15,7 @@ class ProductBase(PGBase):
 
     title: Mapped[str] = mapped_column(unique=True)
     price: Mapped[int] = mapped_column()
+    currency: Mapped[PriceCurrencyEnum] = mapped_column(saEnum(PriceCurrencyEnum, name='price_currency'))
     type: Mapped[str] = mapped_column()
     
     __mapper_args__ = {

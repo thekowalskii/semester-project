@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react'
+
 import { OrderContext } from '../../../context/OrderContext'
 import NovaShipping from '../NovaShipping/NovaShipping'
 import MeestShipping from '../MeestShipping/MeestShipping'
@@ -6,6 +7,7 @@ import UkrShipping from '../UkrShipping/UkrShipping'
 
 
 export default function OrderShipping() {
+
 
     const { selectedShipping, setSelectedShipping, setSelectedShippingConditions } = useContext(OrderContext)
 
@@ -27,12 +29,18 @@ export default function OrderShipping() {
 				<input
 					type='radio'
 					id='nova'
+
 					name='shipping'
+
+					name='nova'
+
 					value='nova'
 					checked={selectedShipping === 'nova'}
 					onChange={changeShipping}
 				/>
+
 				{selectedShipping === 'nova' && <NovaShipping />}
+
 			</div>
 			<div className='order-radio'>
 				<label for='ukr'>UKR poshta</label>
@@ -40,6 +48,7 @@ export default function OrderShipping() {
 					type='radio'
 					id='ukr'
 					name='shipping'
+					name='ukr'
 					value='ukr'
 					checked={selectedShipping === 'ukr'}
 					onChange={changeShipping}
@@ -52,6 +61,7 @@ export default function OrderShipping() {
 					type='radio'
 					id='meest'
 					name='shipping'
+					name='meest'
 					value='meest'
 					checked={selectedShipping === 'meest'}
 					onChange={changeShipping}
@@ -62,6 +72,7 @@ export default function OrderShipping() {
 			className='clear-button'
 			onClick={clear}>
 			Clear shipping options</button>
+			</div>
 		</div>
 	)
 }

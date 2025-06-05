@@ -34,7 +34,7 @@ function Painting({ item, onClick }) {
             
             <div className='info' key={item.title + '_info'}>
                 <h3 key={item.title + '_t'}>{item.title}</h3>
-                <h3 key={item.title + '_p'}>Price: {item.price}₴</h3>
+                <h3 key={item.title + '_p'}>Price: {item.price} {item.currency}</h3>
                 <p key={item.title + '_d'}>
                     {item.short_description}
                     <br key={item.title + '_d_br'}/>
