@@ -1,16 +1,16 @@
-from typing import Optional, List
+from typing import List
 
-from pydantic import BaseModel, field_validator
+from pydantic import field_validator
 from fastapi import Form
 
+from .product_base import ProductBaseSchema
+from .enums.currency import PriceCurrencyEnum
 
-class ProductSchema(BaseModel):
+
+class ProductSchema(ProductBaseSchema):
     '''
     In such form admin should provide data to create new product
     '''
-    title: str
-    description: Optional[str] = Form(None)
-    price: int
     materials: List[str]
     width: float
     height: float
@@ -28,13 +28,15 @@ def parse_product(
     title: str = Form(...),
     description: str | None = Form(None),
     price: int = Form(...),
+    currency: PriceCurrencyEnum = Form(...),
     materials: List[str] = Form(...),
     width: float = Form(...),
     height: float = Form(...),
 ) -> ProductSchema:
-    return ProductSchema(title=title, description=description, price=price, 
-                          materials=materials, width=width, height=height
-                        )
+        return ProductSchema(title=title, description=description, price=price, 
+                            currency=currency, materials=materials, width=width, 
+                            height=height
+                            )
 
 
 class ProductSchemaFull(ProductSchema):
