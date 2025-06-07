@@ -1,4 +1,5 @@
 import uuid
+from typing import Union
 
 from redis import asyncio as aioredis
 from fastapi import HTTPException, status
@@ -39,5 +40,17 @@ class RedisManager:
         'CLEAR'
 
         await self._engine.flushdb(asynchronous=False)
+        
+    async def get_cached_string_data(self, key: str) -> Union[None, str, dict, list]:
+        data = await self._engine.get(key)
+        return data
+        
+    async def cash_string_data(self, key: str, data: str, expired: int = 60) -> None:
+        await self._engine.set(key, data)
+        await self._engine.expire(key, expired)
+        
+    async def ttl(self, key: str):
+        time = await self._engine.ttl(key)
+        return time
 
 redis_manager = RedisManager()

@@ -1,5 +1,5 @@
 from typing import Optional
-# from aiohttp import ClientSession
+from aiohttp import ClientSession
 
 
 class HTTPClient:
@@ -14,6 +14,9 @@ class HTTPClient:
         self.endpoint = endpoint
         self.params = params
         self.payload = payload
-        # self.session = ClientSession(
-        #     base_url=self.base_url
-        # )
+        self.session = ClientSession(
+            base_url=self.base_url
+        )
+
+    async def close_session(self):
+        await self.session.close()

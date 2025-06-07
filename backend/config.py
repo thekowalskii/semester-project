@@ -37,4 +37,4 @@ API_KEY = os.getenv('API_KEY')
 
 # SHIPPING
 
-NOVA = os.getenv("NOVA")
+NOVA_API_KEY = os.getenv("NOVA_API_KEY")
