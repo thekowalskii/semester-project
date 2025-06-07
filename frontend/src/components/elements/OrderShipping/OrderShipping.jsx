@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react'
+
 import { OrderContext } from '../../../context/OrderContext'
 import NovaShipping from '../NovaShipping/NovaShipping'
 import MeestShipping from '../MeestShipping/MeestShipping'
@@ -6,6 +7,7 @@ import UkrShipping from '../UkrShipping/UkrShipping'
 
 
 export default function OrderShipping() {
+
 
     const { selectedShipping, setSelectedShipping, setSelectedShippingConditions } = useContext(OrderContext)
 
@@ -32,7 +34,9 @@ export default function OrderShipping() {
 					checked={selectedShipping === 'nova'}
 					onChange={changeShipping}
 				/>
+
 				{selectedShipping === 'nova' && <NovaShipping />}
+
 			</div>
 			<div className='order-radio'>
 				<label for='ukr'>UKR poshta</label>

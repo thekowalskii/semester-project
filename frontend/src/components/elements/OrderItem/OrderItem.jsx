@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { OrderContext } from "../../../context/OrderContext"
+
 import api from '../../../api'
 
 
@@ -35,6 +36,7 @@ export default function OrderItem() {
         fetchItem()
         fetchItemImage()
     }, [])
+
 
     return (
 			<div className='order-item'>

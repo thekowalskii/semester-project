@@ -107,7 +107,6 @@ function Home() {
 
     return (
         <>
-            <Header />
 
             <main>
                 <h2>Paintings</h2>
