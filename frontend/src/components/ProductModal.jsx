@@ -7,7 +7,7 @@ const ProductModal = ({ product, onClose, type }) => {
   if (!product) return null;
   
   const [imageUrl, setImageUrl] = useState("");
-  const img_url = 'http://127.0.0.1:8000/paintings/get_one?title=' + product.title_wos;
+  const img_url = `http://127.0.0.1:8000/${type}s/get_one?title=` + product.title_wos;
 
   useEffect(() => {
       api.get(img_url, {
@@ -33,7 +33,7 @@ const ProductModal = ({ product, onClose, type }) => {
         }></div>
 
         <div className="modal-info">
-          <h1>{product.title}</h1>
+          <h2>{product.title}</h2>
 
           <span>{type}</span>
           <p>{product.fullDescription}</p>
