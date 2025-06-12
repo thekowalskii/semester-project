@@ -1,8 +1,13 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
+
+import ClearButton from '../ClearButton/ClearButton'
+
 import { OrderContext } from '../../../context/OrderContext'
 
+import './OrderClearButton.css'
 
-export default function OrderClearButton() {
+
+function OrderClearButton() {
 
     const {
 			setPhoneNumber,
@@ -26,9 +31,10 @@ export default function OrderClearButton() {
 
 	return (
 		<>
-			<button className='clear-button' onClick={clear}>
-				Clear all
-			</button>
+			<ClearButton clearFunction={clear} label='Clear all options' />
 		</>
 	)
 }
+
+
+export default OrderClearButton

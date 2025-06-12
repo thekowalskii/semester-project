@@ -7,3 +7,4 @@ from backend.api.routers.products import products_r
 from backend.api.routers.nova import nova_r
 from backend.api.routers.ukr import ukr_r
 from backend.api.routers.meest import meest_r
+from backend.api.routers.order import order_r

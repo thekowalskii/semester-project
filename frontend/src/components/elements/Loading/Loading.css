@@ -1,0 +1,11 @@
+@import '../../../css/variables.css';
+
+
+.loading {
+    background-color: var(--DARK-COLOR);
+    max-height: 35rem;
+    min-height: 35rem;
+    border-radius: var(--BORDER-RADIUS);
+    min-width: 20rem;
+    max-width: 20rem;
+}

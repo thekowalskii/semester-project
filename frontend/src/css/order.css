@@ -1,0 +1,24 @@
+.order-form-item {
+    margin-bottom: 20px;
+    width: 200%;  
+    background-color: var(--LIGHT-COLOR);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.order-input {
+display: flex;
+flex-direction: column;
+}
+
+.order-input-field {
+padding: 0.75rem 1rem;
+}
+
+.order-radio {
+/* background-color: var(--DARK-COLOR); */
+    display: flex;
+}

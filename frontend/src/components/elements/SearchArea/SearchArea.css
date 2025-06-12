@@ -1,0 +1,7 @@
+.search-area {
+    height: 20rem;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 0;
+    width: 40rem;
+}

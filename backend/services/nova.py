@@ -24,27 +24,43 @@ class HTTPClientNOVA(ShippingHTTPClient):
             "Page": "1"
             }
         }
-        template = NOVA().get_template()
+        worker = NOVA()
+        template = worker.get_template()
         data = []
         for page in range(1, 181):
+            # print(page)
             self.payload["methodProperties"]["Page"] = page
             async with self.session.post(url=self.endpoint, json=self.payload) as response:
                 if response.status == 200:
-                    request_data = await response.json()
-                    request_data = request_data["data"][0]
-                    locality_type = request_data["SettlementTypeDescription"]
-                    locality_data = dict()
-                    locality_data["title"] = request_data["DescriptionTranslit"]
-                    locality_data['localityTypeNative'] = locality_type
-                    locality_data["localityType"] = template[locality_type]
-                    locality_data["localityTypeShort"] = template[f's-{locality_type}']
-                    locality_data["region"] = request_data["AreaDescriptionTranslit"]
-                    locality_data["district"] = request_data["RegionsDescriptionTranslit"]
-                    locality_data["department"] = int(request_data["Warehouse"]) == 1
-                    locality_data["courier"] = request_data["AddressDeliveryAllowed"]
-                    data.append(locality_data)
-                else:
-                    request_data = False
+                    d = await response.json()
+                    d = d["data"]
+                    for request_data in d:
+                        locality_type = request_data["SettlementTypeDescription"]
+                        locality_data = dict()
+                        title = request_data["DescriptionTranslit"]
+                        locality_type_short = template[f's-{locality_type}']
+                        region = request_data["AreaDescriptionTranslit"]
+                        district = request_data["RegionsDescriptionTranslit"]
+                        
+                        locality_data["id"] = request_data["Ref"]
+                        locality_data["title"] = title
+                        locality_data['localityTypeNative'] = locality_type
+                        locality_data["localityType"] = template[locality_type]
+                        locality_data["localityTypeShort"] = locality_type_short
+                        locality_data["region"] = region
+                        locality_data["district"] = district
+                        locality_data["department"] = int(request_data["Warehouse"]) == 1
+                        locality_data["courier"] = request_data["AddressDeliveryAllowed"] == True
+                        locality_data["fullTitle"] = worker.full_title(
+                            locality_type_short=locality_type_short,
+                            title=title,
+                            region=region,
+                            district=district
+                        )
+                        data.append(locality_data)
+                # else:
+                #     pass
+                    # request_data = False
                     # data.append(request_data)
         await self.close_session()
         if not data:

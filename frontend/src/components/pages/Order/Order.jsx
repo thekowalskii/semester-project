@@ -1,18 +1,29 @@
-import { useParams } from "react-router-dom"
+// import { useParams } from "react-router-dom"
+
 import OrderForm from "../../elements/OrderForm/OrderForm";
 import OrderItem from "../../elements/OrderItem/OrderItem";
 
+import './Order.css'
 
-export default function Order() {
-    const { item_id } = useParams();
+
+function Order() {
+    // const { item_id } = useParams();
+
+    function handleSubmit(event) {
+		event.preventDefault()
+
+    }
 
     return (
-        <>
-          <h1>Order</h1>
-          <div className="order">
-            <OrderForm />
-            <OrderItem />
-          </div>
-        </>
-    )
+			<>
+				<h1>Order</h1>
+				<form className='order' onSubmit={handleSubmit}>
+						<OrderForm />
+						<OrderItem />
+				</form>
+			</>
+		)
 }
+
+
+export default Order

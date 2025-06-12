@@ -1,0 +1,5 @@
+.order-shipping {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}

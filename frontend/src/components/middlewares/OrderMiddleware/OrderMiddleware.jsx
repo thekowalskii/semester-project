@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
+
 import { OrderContextProvider } from "../../../context/OrderContext";
 
 
-export default function OrderMiddleware() {
+function OrderMiddleware() {
     
     return (
         <>
@@ -12,3 +13,6 @@ export default function OrderMiddleware() {
         </>
     )
 }
+
+
+export default OrderMiddleware

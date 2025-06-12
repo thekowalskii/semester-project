@@ -1,0 +1,15 @@
+@import '../../../css/variables.css';
+
+
+.search {
+    background-color: var(--DARK-COLOR);
+}
+
+.search-selected-item {
+    background-color: gray;
+}
+
+.search-suggest {
+    margin: 0.5rem;
+    border: 2px solid red
+}

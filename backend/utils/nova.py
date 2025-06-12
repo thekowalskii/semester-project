@@ -45,3 +45,21 @@ class NOVA:
     
     def get_template(self) -> dict:
         return self.template
+    
+    @staticmethod
+    def full_title(
+        locality_type_short: str,
+        title: str,
+        region: str,
+        district: str
+    ) -> str:
+        if district:
+            district = f" {district} dist."
+        else:
+            district = ""
+        if region:
+            region =  f" ({region} reg."
+        else:
+            region = ""
+        data = f"{locality_type_short}. {title}{region}{district})"
+        return data

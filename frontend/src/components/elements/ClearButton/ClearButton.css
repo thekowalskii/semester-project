@@ -1,0 +1,8 @@
+@import '../../../css/variables.css';
+
+
+.clear-button {
+    background-color: var(--ERROR-COLOR);
+    margin: 2rem;
+    width: 80%;
+}

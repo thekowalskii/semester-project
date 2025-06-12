@@ -1,20 +1,25 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 
-import { OrderContext } from '../../../context/OrderContext'
 import NovaShipping from '../NovaShipping/NovaShipping'
 import MeestShipping from '../MeestShipping/MeestShipping'
 import UkrShipping from '../UkrShipping/UkrShipping'
+import Shipping from '../Shipping/Shipping'
+import ClearButton from '../ClearButton/ClearButton'
+
+import { OrderContext } from '../../../context/OrderContext'
+
+import './OrderShipping.css'
 
 
-export default function OrderShipping() {
+function OrderShipping() {
 
-
-    const { selectedShipping, setSelectedShipping, setSelectedShippingConditions } = useContext(OrderContext)
-
-    function changeShipping(event) {
-        setSelectedShippingConditions(null)
-        setSelectedShipping(event.target.value)
-    }
+    const {
+			selectedShipping,
+			setSelectedShipping,
+			setSelectedShippingConditions,
+			setNovaCourier,
+			setNovaDepartment
+		} = useContext(OrderContext)
 
 	function clear() {
 		setSelectedShippingConditions(null)
@@ -24,48 +29,23 @@ export default function OrderShipping() {
 	return (
 		<div className='order-form-item'>
 			<h2>Shipping</h2>
-			<div className='order-radio'>
-				<label for='nova'>Nova poshta</label>
-				<input
-					type='radio'
+			<div className='order-shipping'>
+				<Shipping
 					id='nova'
-					name='shipping'
-					value='nova'
-					checked={selectedShipping === 'nova'}
-					onChange={changeShipping}
+					label='Nova Post'
+					shippingElement=<NovaShipping />
 				/>
-
-				{selectedShipping === 'nova' && <NovaShipping />}
-
-			</div>
-			<div className='order-radio'>
-				<label for='ukr'>UKR poshta</label>
-				<input
-					type='radio'
-					id='ukr'
-					name='shipping'
-					value='ukr'
-					checked={selectedShipping === 'ukr'}
-					onChange={changeShipping}
-				/>
-				{selectedShipping === 'ukr' && <UkrShipping />}
-			</div>
-			<div className='order-radio'>
-				<label for='meest'>Meest poshta</label>
-				<input
-					type='radio'
+				<Shipping id='ukr' label='Ukr Post' shippingElement=<UkrShipping /> />
+				<Shipping
 					id='meest'
-					name='shipping'
-					value='meest'
-					checked={selectedShipping === 'meest'}
-					onChange={changeShipping}
+					label='Meest Ukraine Post'
+					shippingElement=<MeestShipping />
 				/>
-				{selectedShipping === 'meest' && <MeestShipping />}
 			</div>
-			<button 
-			className='clear-button'
-			onClick={clear}>
-			Clear shipping options</button>
+			<ClearButton clearFunction={clear} label='Clear shipping options' />
 		</div>
 	)
 }
+
+
+export default OrderShipping

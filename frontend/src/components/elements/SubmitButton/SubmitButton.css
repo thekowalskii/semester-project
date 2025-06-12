@@ -1,0 +1,6 @@
+@import '../../../css/variables.css';
+
+
+.submit-button {
+    background-color: var(--DARK-COLOR);
+}

@@ -1,0 +1,13 @@
+.order-item {
+    background-color: var(--LIGHT-COLOR);
+    max-height: 35rem;
+    min-height: 35rem;
+    border-radius: var(--BORDER-RADIUS);
+    min-width: 20rem;
+    max-width: 20rem;
+}
+
+.order-item > .image {
+    border-top-left-radius: var(--BORDER-RADIUS);
+    border-top-right-radius: var(--BORDER-RADIUS);
+}
